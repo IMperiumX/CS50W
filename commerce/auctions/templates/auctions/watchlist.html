@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Hi, {{request.user}} Your Watchlist Goes Here!</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        <div>
+            {{ message|safe }}
+            {% endfor %}
+        </div>
+    </div>
+</ul>
+{% endif %}
+{% for auction in auctions %}
+<div class="card mb-3 ">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <a href="{% url 'listing_detail' auction.pk %}">
+                <img src="{{auction.image}}" class="img-fluid rounded-start" alt="{{auction.title}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{auction.title}}</h5>
+                </a>
+                <p class="card-text">{{auction.description|linebreaks}}</p>
+                <small class="text-muted">by: {{auction.user}}</small>
+                <p class="card-text"><small class="text-muted">created: {{auction.date_added|date:'l, F j '}}</small></p>
+                <p>Price: {{auction.starting_bid}}$</p>
+                <h3>Details:</h3>
+                <p>Listed by: {{auction.user}}</p>
+                <p>Category: {{auction.category}}</p>
+            </div>
+        </div>
+    </div>
+    {% if request.user == auction.user %}
+    <a href="{% url 'watchlist_remove' auction.pk %}" role="button" class="btn btn-outline-danger btn-lg">Remove From Watchlist</a>
+    {%endif%}
+</div>
+{% empty %}
+<h2 style="text-align: center; color: teal;">Start Your Shopping Now!</h2>
+{% endfor %}
+{% endblock %}

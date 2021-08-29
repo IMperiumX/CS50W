@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        <div>
+            {{ message|safe }}
+            {% endfor %}
+        </div>
+    </div>
+</ul>
+{% endif %}
+<div class="card mb-3 ">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{auctions.image}}" class="img-fluid rounded-start" alt="{{auctions.title}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{auctions.title}}</h5>
+                <p class="card-text">{{auctions.description|linebreaks}}</p>
+                <p class="card-text"><small class="text-muted">created: {{auctions.date_added|date:'l, F j '}}</small></p>
+                <p>Final Price: {{auctions.starting_bid}}$</p>
+                <hr>
+                <h3>Details:</h3>
+                <p>Listed by: {{auctions.user}}</p>
+                <p>Category: {{auctions.category}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

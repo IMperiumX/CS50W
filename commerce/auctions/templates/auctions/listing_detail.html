@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        <div>
+            {{ message|safe }}
+            {% endfor %}
+        </div>
+    </div>
+</ul>
+{% endif %}
+<div class="card mb-3 ">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{auctions.image}}" class="img-fluid rounded-start" alt="{{auctions.title}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{auctions.title}}</h5>
+                <p class="card-text">{{auctions.description|linebreaks}}</p>
+                <p class="card-text"><small class="text-muted">created: {{auctions.date_added|date:'l, F j '}}</small></p>
+                <p>Price: {{auctions.starting_bid}}$</p>
+                <form action="{% url 'bidding' auctions.pk %}" method="post">
+                    {% csrf_token %}
+                    <div>Bid: $ <input type="number" min="{{ auctions.starting_bid }}" step="1.00" name="bid" placeholder="{{ auctions.starting_bid }}">
+                        <input type="submit" class="btn btn-primary"> </div>
+                </form>
+                <hr>
+                <h3>Details:</h3>
+                <p>Listed by: {{auctions.user}}</p>
+                <p>Category: {{auctions.category}}</p>
+            </div>
+        </div>
+    </div>
+    {% if exists %}
+    <a href="{% url 'watchlist_remove' auctions.pk %}" role="button" class="btn btn-outline-danger btn-lg">Remove from Watchlist</a>
+    {% else %}
+    <a href="{% url 'watchlist_add' auctions.pk %}" role="button" class="btn btn-outline-success btn-lg">Add to Watchlist</a>
+    {% endif %}
+</div>
+{% if request.user == auctions.user %}
+<a href="{% url 'bidding_close' auctions.pk %}" role="button" class="btn btn-outline-danger btn-lg">Close The Bid</a>
+{% endif %}
+<div class="col-md-8 card mb-4  mt-3 mx-auto ">
+    <div class="card-body">
+        <!-- comments -->
+        <h2>{{ comments.count }} comment{{comment|pluralize}}</h2>
+        {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+            <p class="font-weight-bold">
+                {{ comment.name }}
+                <span class=" text-muted font-weight-normal">
+                    {{ comment.created_on }}
+                </span>
+            </p>
+            {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="col-md-8 card mb-4  mt-3 mx-auto">
+    <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+            Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+            {{ comment_form| crispy }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Auctions{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fifth navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">Auctions</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample05" style="position: absolute; left: 32%;">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Ative Listings</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create' %}">Create Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'watchlisting' %}" tabindex="-1" aria-disabled="true">Watchlist<span class="badge badge-light" style="margin-left: 4px;">{{ user.watchlist_set.all.get.item.all.count}}</span></a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle " href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false" style="position: absolute; left: 15rem;"><strong>Hi, {{user.username}}</strong> </a>
+                        <ul class="dropdown-menu position-absolute top-0 start-0" style="position: absolute; left: 15rem;" aria-labelledby="dropdown05">
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                            {% else %}
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle " style="position: absolute; left: 15rem;" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false"><strong>Hi, There</strong> </a>
+                                <ul class="dropdown-menu position-absolute top-0 start-0" style="position: absolute; left: 15rem;" aria-labelledby="dropdown05">
+                                    <li><a class="dropdown-item" href="{% url 'login' %}">Log In</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                                </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr>
+    {% block body %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            <div>
+                <li>
+                    {{ message|safe }}
+                </li>
+                {% endfor %}
+            </div>
+        </div>
+    </ul>
+    {% endif %}
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+
+</html>

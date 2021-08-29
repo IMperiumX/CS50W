@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+<style type="text/css">
+    body {
+        margin: 10px;
+    }
+</style>
+<form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-outline-success btn-lg " value="Save">
+</form>
+{% endblock %}
