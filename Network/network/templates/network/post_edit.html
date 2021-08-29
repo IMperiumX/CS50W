@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Edit post</h1>
+<form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <input class="btn btn-success ml-2" type="submit" value="Update">
+</form>
+{% endblock content %}

@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+{% load thumbnail %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <a class="profile-bg main-wrapper d-block"></a>
+    <div>
+        <a href="#" id="profile-link">
+            <img src="{% thumbnail user.profile.photo 180x180 %}" id="profile-img">
+        </a>
+        <div id="profile-marg">
+            <div id="profile-name">
+                <a href="#">{{ user.username }}</a>
+            </div>
+            <span>
+                <a href="#">@<span>{{ user.username }}</span></a>
+            </span>
+            {% with total_followers=user.followers.count %}
+            <a class="follow" style="position: absolute; left: 10rem;" href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %} un {% endif %} follow" class="follow">
+                {% if request.user not in user.followers.all %}
+                Follow
+                {% else %}
+                Unfollow
+                {% endif %}
+            </a>
+        </div>
+        <div id="profile-state">
+            <a href="{% url 'edit' %}">Edit Your Profile</a>
+            <ul id="profile-Arrange">
+                <li id="profile-details">
+                    <a href="#">
+                        <span class="d-block" id="profile-label">Tweets</span>
+                        <span id="profile-number">
+                            {{posts.count}}
+                        </span>
+                    </a>
+                </li>
+                <li id="profile-details">
+                    <a href="#">
+                        <span class="d-block" id="profile-label">Following</span>
+                        <span id="profile-number">
+                            {{ user.following.count }}
+                        </span>
+                    </a>
+                </li>
+                <li id="profile-details">
+                    <a href="#">
+                        <span class="d-block" id="profile-label">Followers</span>
+                        <span>
+                            <span class=coutn >
+                            <span class="total">
+                            {{ total_followers }}
+                            </span>
+                            </span>
+                        </span>
+                        </span>
+                    </a>
+                    {% endwith %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% for post in posts %}
+<div class="tweet-wrap">
+    <div class="tweet-header">
+        <img src="{% thumbnail post.author.profile.photo 180x180 %}" alt="{{post.author}}" class="avator">
+        <div class="tweet-header-info">
+            {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author}}</span></a><span>.
+                {{post.date_added|date:'l, F j'}}
+            </span>
+            <p>{{post.body|linebreaks}}</p>
+        </div>
+    </div>
+    {% if post.author == request.user %}
+    <a href="{% url 'post_edit' post.pk %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+        </svg></a>
+    <a href="{% url 'post_delete' post.pk %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+        </svg></a>
+    {% endif %}
+    <div class="tweet-info-counts">
+        <div class="likes-count">
+            {% with total_likes=post.users_like.count users_like=post.users_like.all %}
+            <div class="likes">
+                <div class="likes-count">
+                    <span class="count">
+                        <span class="total">{{ total_likes }}</span>
+                        like{{ total_likes|pluralize }}
+                        <a class="like" href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like">
+                            {% if request.user not in users_like %}
+                            Like
+                            {% else %}
+                            Unlike
+                            {% endif %}
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endwith %}
+{% endfor %}
+{% endblock %}
+{% block domready %}
+$('a.follow').click(function(e){
+e.preventDefault();
+$.post('{% url "user_follow" %}',
+{
+id: $(this).data('id'),
+action: $(this).data('action')
+},
+function(data){
+if (data['status'] == 'ok') {
+var previous_action = $('a.follow').data('action');
+// toggle data-action
+$('a.follow').data('action',
+previous_action == 'follow' ? 'unfollow' : 'follow');
+// toggle link text
+$('a.follow').text(
+previous_action == 'follow' ? 'Unfollow' : 'Follow');
+// update total followers
+var previous_followers = parseInt($('span.coutn .total').text());
+$('span.coutn .total').text(previous_action == 'follow' ?
+previous_followers + 1 : previous_followers - 1);
+}
+}
+);
+});
+$('a.like').click(function(e){
+e.preventDefault();
+$.post('{% url 'like' %}',
+{
+id: $(this).data('id'),
+action: $(this).data('action')
+},
+function(data){
+if (data['status'] == 'ok')
+{
+var previous_action = $('a.like').data('action');
+// toggle data-action
+$('a.like').data('action', previous_action == 'like' ?
+'unlike' : 'like');
+// toggle link text
+$('a.like').text(previous_action == 'like' ? 'Unlike' :
+'Like');
+// update total likes
+var previous_likes = parseInt($('span.count .total').text());
+$('span.count .total').text(previous_action == 'like' ?
+previous_likes + 1 : previous_likes - 1);
+}
+}
+);
+});
+{% endblock %}
