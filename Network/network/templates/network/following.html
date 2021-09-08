@@ -6,8 +6,9 @@
     <div class="tweet-header">
         <img src="{% thumbnail post.author.profile.photo 180x180 %}" alt="" class="avator">
         <div class="tweet-header-info">
-            {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author}}</span></a><span>. {{post.date_added|date:'l, F j'}}
-                
+            {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author}}</span></a><span>.
+                {{post.date_added|date:'l, F j'}}
+
             </span>
 
             <p>{{post.body|linebreaks}}</p>

@@ -42,7 +42,7 @@ class Post(models.Model):
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
     users_like = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name='images_liked', blank=True
+        settings.AUTH_USER_MODEL, related_name='liked_user', blank=True
     )
     total_likes = models.PositiveIntegerField(db_index=True, default=0)
 
