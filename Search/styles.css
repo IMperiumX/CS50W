@@ -51,10 +51,17 @@ li a:hover {
 .camera {
   height:20px;
   position:relative;
-  top:5px;
-  left:10px;
+  top:0px;
+  left:-15px;
 }
 
+.search_btn {
+position: absolute;
+
+top: 0px;
+left: 0px;
+background-color: transparent;
+}
 
 .logo{
   margin-top:200px;
@@ -79,6 +86,7 @@ li a:hover {
   box-shadow: 1px 1px 8px 1px #dcdcdc;
   outline:none;
 }
+
 
 
 .searchbar{
@@ -166,6 +174,20 @@ height: 20px;
 }
 
 
+
+#instruction {
+  color: #666;
+  font-family: monospace;
+  font-size: 16px;
+  position: absolute;
+  margin-left: 648px;
+  margin-top: 265px;
+  display: table-cell;
+  vertical-align: middle;
+  font-family: arial,sans-serif;
+}
+
+
 .l_f {
 
   color: #666;
@@ -173,8 +195,8 @@ height: 20px;
   font-size: 11px;
   margin-left: 35px;
 
-
 }
+
 
 .as_empty {
 

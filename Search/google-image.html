@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <center>
+<center>
     <header>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>Google Image Search</title>
     </header>
+
     <body>
         <ul>
-            <li>
-                <li><a href="#grid"><img class="grid" src="./images/Material_icons.png" title="Google apps"></a></li>
-                <li><a href="index.html">Googel Search</a></li>
-                <li><a href="advanced.html">Advanced Search</a></li>
-            </li>
+            <li><a href="#grid"><img class="grid" src="./images/Material_icons.png" title="Google apps"></a></li>
+            <li><a href="index.html">Googel Search</a></li>
+            <li><a href="advanced.html">Advanced Search</a></li>
         </ul>
         <div class="logo">
             <img alt="Google" src="./images/google_img.png">
@@ -19,10 +20,12 @@
         </div>
         <div class="bar">
             <form action="https://google.com/search">
-                <input class="searchbar" type="text" title="Search", name="q">
+                <input class="searchbar" type="text" title="Search" , name="q">
                 <input type="hidden" name="tbm" value="isch">
-                <a href="#"> <img class="camera" src="./images/camera.png" title="Search by Image"></a>
+                <img class="camera" src="./images/camera.png" title="Search by Image">
+                <input type="image" src="./images/search.svg"alt="Submit" class="submit-icon">
             </form>
         </div>
     </body>
+
 </html>

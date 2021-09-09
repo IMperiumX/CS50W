@@ -1,9 +1,18 @@
-{% extends "encyclopedia/layout.html" %} {% block title %} Encyclopedia
+{% extends "layout.html" %} {% block title %} Encyclopedia
   {%endblock %} {% block body %}
     <h1>All Pages</h1>
-    <ul>
-      {% for entry in entries %}
-        <a href="{% url 'entry' entry %}"><li>{{ entry }}</li></a>
+    <ul class="list-group">
+      {% for title in titles %}
+        <a href="{% url 'entry' title %}"><li class="list-group-item">{{ title }}</li></a>
       {% endfor %}
     </ul>
   {% endblock %}
+
+
+  <ul class="list-group">
+  <li class="list-group-item active">Cras justo odio</li>
+  <li class="list-group-item">Dapibus ac facilisis in</li>
+  <li class="list-group-item">Morbi leo risus</li>
+  <li class="list-group-item">Porta ac consectetur ac</li>
+  <li class="list-group-item">Vestibulum at eros</li>
+</ul>

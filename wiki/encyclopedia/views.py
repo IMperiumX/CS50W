@@ -5,17 +5,12 @@ from . import util
 
 
 def index(request):
-    return render(request, "encyclopedia/index.html", {"entries": util.list_entries()})
+    return render(request, "encyclopedia/index.html", {"titles": util.list_entries()})
 
 
 def entry(request, title):
-    content = util.get_entry(title.strip())
-    if content == None:
-        content = "## Page was not found"
-    content = markdown(content)
-    return render(
-        request, "encyclopedia/entry.html", {'content': content, 'title': title}
-    )
+    context = {'content': markdown(util.get_entry(title.strip())), 'title': title}
+    return render(request, "encyclopedia/entry.html", context)
 
 
 def search(request):
@@ -25,7 +20,7 @@ def search(request):
     if q in filenames:
         return redirect("entry", title=q)
     return render(
-        request, "encyclopedia/search.html", {"entries": search_result, "q": q}
+        request, "encyclopedia/search.html", {"titles": search_result, "q": q}
     )
 
 
@@ -33,12 +28,12 @@ def create(request):
     if request.method == "POST":
         title = request.POST.get("title").strip()
         content = request.POST.get("content").strip()
-        if title == "" or content == "":
+        if not (title or content):
             return render(
                 request,
-                "encyclopedia/add.html",
+                "encyclopedia/create.html",
                 {
-                    "message": "Can't save with empty field.",
+                    "message": "Can't be saved with empty fields!.",
                     "title": title,
                     "content": content,
                 },
@@ -46,22 +41,22 @@ def create(request):
         if title in util.list_entries():
             return render(
                 request,
-                "encyclopedia/add.html",
+                "encyclopedia/create.html",
                 {
-                    "message": "Title already exist. Try another.",
+                    "message": "Be Creative! That Entry Exists.",
                     "title": title,
                     "content": content,
                 },
             )
         util.save_entry(title, content)
         return redirect("entry", title=title)
-    return render(request, "encyclopedia/add.html")
+    return render(request, "encyclopedia/create.html")
 
 
 def edit(request, title):
     content = util.get_entry(title.strip())
-    if content == None:
-        return render(request, "encyclopedia/edit.html", {'error': "404 Not Found"})
+    if content == "## Page was not found":
+        return render(request, "encyclopedia/edit.html", {'error': content})
 
     if request.method == "POST":
         content = request.POST.get("content").strip()
@@ -70,7 +65,7 @@ def edit(request, title):
                 request,
                 "encyclopedia/edit.html",
                 {
-                    "message": "Can't save with empty field.",
+                    "message": "Can't be saved with empty fields!.",
                     "title": title,
                     "content": content,
                 },
