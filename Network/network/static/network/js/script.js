@@ -33,7 +33,7 @@ function like_handeler(element) {
         }
       })
       .catch(function (res) {
-        alert("Network Error. Please Check your connection.");
+        alert("Please Check your connection, Or you should login");
       });
   });
 }

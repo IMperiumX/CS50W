@@ -6,13 +6,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
+# Follow system packages.
+from django.http import HttpResponseRedirect, JsonResponse, Http404
+from django.views.decorators.http import require_POST
+from actions.utils import create_action
+from common.decorators import ajax_required
+from .models import Contact
 
 from .forms import CreatePostForm, ProfileEditForm, UserEditForm
 from .models import Post, Profile
@@ -103,7 +108,7 @@ def following_posts(request, username):
     user = User.objects.get(username=username, is_active=True)
     user_to_set = user.following.all()
     following_posts = [user.twitter_posts.all() for user in user_to_set]
-    posts = list(chain.from_iterable(following_posts)).sort()
+    posts = list(chain.from_iterable(following_posts))
 
     return render(request, "network/following.html", {"posts": posts})
 
@@ -157,6 +162,26 @@ def like(request):
         except:
             return JsonResponse({'error': "Post not found", "status": 404})
     return JsonResponse({}, status=400)
+
+
+@ajax_required
+@require_POST
+@login_required
+def user_follow(request):
+    user_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)
+            if action == 'follow':
+                Contact.objects.get_or_create(user_from=request.user, user_to=user)
+                create_action(request.user, 'is following', user)
+            else:
+                Contact.objects.filter(user_from=request.user, user_to=user).delete()
+            return JsonResponse({'status': 'ok'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})
 
 
 class PostListView(ListView):

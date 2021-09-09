@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 {% load thumbnail %}
 {% block content %}
+
 {% for post in posts %}
+
 <div class="tweet-wrap">
     <div class="tweet-header">
         <a href="{% url 'user_detail' post.author %}"><img src="{% thumbnail post.author.profile.photo 180x180 %}" alt="{{post.author}}" class="avator"></a>
@@ -9,6 +11,7 @@
             {{post.author}} <a href="{% url 'user_detail' post.author %}"><span>@{{post.author.username}}</span></a><span>.
                 {{post.date_added|date:'l, F j'}}
             </span>
+            <hr>
             <p>{{post.body|linebreaks}}</p>
         </div>
     </div>
@@ -37,4 +40,5 @@
 </div>
 {% endfor %}
 {% include "network/pagination.html" with page=page_obj %}
+
 {% endblock content %}

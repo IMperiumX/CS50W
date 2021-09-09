@@ -3,6 +3,7 @@
 }
 
 * {
+    color: white;
     margin: 0px;
     padding: 0px;
     box-sizing: content-box;
@@ -17,15 +18,19 @@ a.follow {
 
 
 .wrapper {
-    background: #fff none repeat scroll 0 0;
+    background: #2d3741 none repeat scroll 0 0;
     border: 1px solid #e1e8ed;
     border-radius: 25px;
     height: auto;
     width: 100%;
     max-width: 340px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, .09);
+    border-radius: 25px;
 }
 
+.wrapper:hover{
+    border-color: teal;
+}
 .main-wrapper {
     border-radius: 4px 4px 0px 0px;
     height: 45px;
@@ -33,7 +38,7 @@ a.follow {
 }
 
 #profile-link {
-    background-color: #fff;
+    background-color: #2d3741;
     border-radius: 6px;
     display: inline-block;
     float: left;
@@ -44,9 +49,9 @@ a.follow {
 }
 
 #profile-img {
-    border: 2px solid #fff;
+    border: 2px solid #2d3741;
     border-radius: 25px;
-    color: #fff;
+    color: #2d3741;
     height: 72px;
     width: 72px;
 }
@@ -137,13 +142,20 @@ img {
 
 .tweet-wrap {
     max-width: 490px;
-    background: #fff;
+    background: #90909017;
     margin: 0 auto;
     margin-top: 50px;
     border-radius: 3px;
     padding: 30px;
-    border-bottom: 1px solid gray;
-    border-top: 1px solid gray;
+    border-radius: 25px;
+    border: 1px solid transparent;
+
+}
+.tweet-wrap:hover{
+    ackground-color: #90909017;
+    border-radius: 25px;
+    border-color: white;
+
 }
 
 .tweet-header {
@@ -153,6 +165,7 @@ img {
 }
 
 .tweet-header-info {
+    color: white;
     font-weight: bold;
 
 }
@@ -163,6 +176,7 @@ img {
 }
 
 .tweet-header-info p {
+    color: gray;
     font-weight: normal;
     margin-top: 5px;
 
@@ -234,8 +248,8 @@ img {
 
 
 body {
-    margin: 0;
-    padding: 0;
+    background: #15202b;
+    color: var(--muted-color);
     -webkit-font-smoothing: antialiased;
     font-family: arial;
 }
@@ -266,3 +280,13 @@ a {
     color: #1DA1F2;
 }
 
+
+.profile-section{
+  background-color: #2d3741;
+  padding: 5px;
+  border-radius: 25px;
+}
+.email-profile{
+  font-size: 13px;
+  outline: hidden;
+}

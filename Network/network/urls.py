@@ -16,6 +16,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
     # User action realted URLs
     path('edit/', views.edit, name='edit'),
+    path('users/follow/', views.user_follow, name='user_follow'),
     path('users/', views.UserPostListView.as_view(), name='user_list'),
     path('users/<username>/following/', views.following_posts, name='user_following'),
     path('users/<username>/', views.user_detail, name='user_detail'),
