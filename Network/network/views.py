@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
 # Follow system packages.
@@ -196,17 +197,29 @@ class PostDetailView(DetailView):
     template_name = "network/post_detail.html"
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = "network/post_edit.html"
     fields = ["body", "status"]
     success_url = reverse_lazy("index")
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise Http404("You are not allowed to edit this Post")
+        return super(PostUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = "network/post_delete.html"
     success_url = reverse_lazy("index")
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise Http404("You are not allowed to delete this Post")
+        return super(PostUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class UserPostListView(ListView):

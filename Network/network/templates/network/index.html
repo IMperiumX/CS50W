@@ -1,9 +1,7 @@
 {% extends "layout.html" %}
 {% load thumbnail %}
 {% block content %}
-
 {% for post in posts %}
-
 <div class="tweet-wrap">
     <div class="tweet-header">
         <a href="{% url 'user_detail' post.author %}"><img src="{% thumbnail post.author.profile.photo 180x180 %}" alt="{{post.author}}" class="avator"></a>
@@ -38,7 +36,12 @@
 </div>
 </div>
 </div>
+{% empty %}
+<p class="empty" style="
+    font-size: 48px;
+    text-align: center;
+    color: #a1aac1;
+">Go, Share us your quality thoughs</p>
 {% endfor %}
 {% include "network/pagination.html" with page=page_obj %}
-
 {% endblock content %}
