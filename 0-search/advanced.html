@@ -1,55 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>&#x1F3C6 Google Advanced Search</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
-    <body>
-                <h3 id="instruction" class="d-inline font-weight-bold text-muted">To do this in the search box.</h3>
 
-        <img alt="Google" src="./images/google_img.png">
-        <br></br>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>&#x1F3C6 Google Advanced Search</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h3 id="instruction" class="d-inline font-weight-bold text-muted">To do this in the search box.</h3>
+
+    <img alt="Google" src="./images/google_img.png">
+    <br></br>
+    <div>
+        <label class="as_lable">Advanced Search</label>
+    </div>
+    <br></br>
+    <div class="ll"></div>
+    <br></br>
+    <div class="as_empty">
+        <label>Find pages with</label>
+    </div>
+    <form action="https://google.com/search">
         <div>
-            <label class="as_lable">Advanced Search</label>
+            <label class="l_s">all these words</label>
+            <input class="advanced" type="text" title="Search" , name="as_q">
+            <label class="l_f">Type the important words: tri-colour rat terrier</label>
         </div>
-        <br></br>
-        <div class="ll"></div>
-        <br></br>
-        <div class="as_empty">
-            <label>Find pages with</label>
+        <div>
+            <label class="l_s">this exact word</label>
+            <input class="advanced" type="text" title="Search" , name="as_epq">
+            <label class="l_f">Put exact words in quotes: "rat terrier"</label>
         </div>
-        <form action="https://google.com/search">
-            <div>
-                <label class="l_s" >all these words</label>
-                <input class="advanced" type="text" title="Search", name="as_q">
-                <label class="l_f">Type the important words: tri-colour rat terrier</label>
-            </div>
-            <div>
-                <label class="l_s">this exact word</label>
-                <input class="advanced" type="text" title="Search", name="as_epq">
-                <label class="l_f">Put exact words in quotes: "rat terrier"</label>
-            </div>
-            <div>
-                <label class="l_s">any of th words</label>
-                <input class="advanced" type="text" title="Search", name="as_oq">
-                <label class="l_f">Type OR between all the words you want: miniature OR standard</label>
-            </div>
-            <div>
-                <label class="l_s">none of words::</label>
-                <input class="advanced" type="text" title="Search", name="as_eq">
-                <label class="l_f">Put a minus sign just before words that you don't want:
+        <div>
+            <label class="l_s">any of th words</label>
+            <input class="advanced" type="text" title="Search" , name="as_oq">
+            <label class="l_f">Type OR between all the words you want: miniature OR standard</label>
+        </div>
+        <div>
+            <label class="l_s">none of words::</label>
+            <input class="advanced" type="text" title="Search" , name="as_eq">
+            <label class="l_f">Put a minus sign just before words that you don't want:
                 -rodent, -"Jack Russell"</label>
-            </div>
-            <button class="as_btn" value="Google Advanced Search"type="submit">Advanced Search</button>
-        </form>
-        <ul class="tr">
+        </div>
+        <button class="as_btn" value="Google Advanced Search" type="submit">Advanced Search</button>
+    </form>
+    <ul class="tr">
+        <li>
             <li>
-                <li><a href="#grid"><img class="grid" src="https://cdn3.iconfinder.com/data/icons/navigation-and-settings/24/Material_icons-01-11-512.png" title="Google apps"></a></li>
-                <li><a href="google-image.html">Images</a></li>
-                <li><a href="index.html">Googel Search</a></li>
+                <a href="#grid"><img class="grid" src="https://cdn3.iconfinder.com/data/icons/navigation-and-settings/24/Material_icons-01-11-512.png" title="Google apps"></a>
             </li>
-        </ul>
-    </body>
+            <li><a href="google-image.html">Images</a></li>
+            <li><a href="index.html">Googel Search</a></li>
+        </li>
+    </ul>
+</body>
+
 </html>
