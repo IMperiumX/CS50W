@@ -41,13 +41,6 @@ display all of the listings that a user has added to their watchlist.
 - Via the Django admin interface, a site administrator should be
 able to view, add, edit, and delete any listings, comments, and bids made on the site.
 
-
-## License
-
-LICENSE NAME - see the [LICENSE.md](link_to_license_file) file for details
-
-// or
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Acknowledgements
