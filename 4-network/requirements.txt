@@ -1,0 +1,3 @@
+django 
+easy-thumbnails
+django-crispy-forms
