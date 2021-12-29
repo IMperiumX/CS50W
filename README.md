@@ -2,7 +2,7 @@
 
 All projects for CS50's Web Programming with Python and JavaScript.
 
-# Table of contents:
+# Table of contents
 
 - [Search](#search)
 - [Wiki](#wiki)
@@ -11,48 +11,54 @@ All projects for CS50's Web Programming with Python and JavaScript.
 - [Network](#network)
 - [Capstone (Educa)](#capstone)
 
+
 <br>
 
-# Search 
-<h3 style='text-align: center;'> [Source code](0-search) </h3>
+# Search
 
+[Source code](0-search)
 
-## A front-end for Google Search, Google Image Search, and Google Advanced Search.
-
-<img src="images/google-search.png" alt="google search main page">
+## A front-end for Google Search, Google Image Search, and Google Advanced Search
 
 
 <br>
 
 # Wiki
-<h3 style='text-align: center;'> [Source code](1-wiki) </h3>
 
+[Source code](1-wiki)
 
-## Wikipedia-like online encyclopedia.
+## Wikipedia-like online encyclopedia
 
-<img src="images/wiki.png" alt="wiki main page">
 
 <br>
 
 # Commerce
-<h3 style='text-align: center;'> [Source code](2-commerce) </h3>
 
-## An eBay-like **e-commerce** auction site that will allow users to **post
-   auction** listings, **place bids** on listings, **comment** on those
-   listings, and **add** listings to a **"watchlist."**
+[Source code](2-commerce)
 
-<img src="images/commerce.png" alt="commerce main page">
+## An eBay-like **e-commerce** auction site that will allow users to *post auction **listings,** place bids **on listings,** comment **on those listings, and** ad **listings to a** "watchlist."
+
 
 <br>
 
 # Mail
-<h3 style='text-align: center;'> [Source code](3-mail) </h3>
 
-## A front-end for an email client that makes **API calls** to send and receive emails.
+[Source code](3-mail)
+
+## A front-end for an email client that makes **API calls** to send and receive emails
 
 <br>
 
 # Network
-<h3 style='text-align: center;'> [Source code](4-network) </h3>
 
-## A Twitter-like social network website for making posts and following users.
+[Source code](4-network)
+
+## A Twitter-like social network website for making posts and following users
+
+<br>
+
+# Capstone
+
+[Source code](5-Capstone)
+
+## An e-learning platform with Content Management System(CMS), REST API for courses and enchanced with flexable tools to Manage and Genearate contents in various types.
