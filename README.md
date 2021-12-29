@@ -59,6 +59,6 @@ All projects for CS50's Web Programming with Python and JavaScript.
 
 # Capstone
 
-[Source code](5-Capstone)
+[Source code](5-capstone)
 
 ## An e-learning platform with Content Management System(CMS), REST API for courses and enchanced with flexable tools to Manage and Genearate contents in various types.
