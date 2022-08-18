@@ -1,60 +1,94 @@
 <!DOCTYPE html>
 <html>
+<header>
 
-<head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>&#x1F3C6 Google Advanced Search</title>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.2/dist/flowbite.min.css" />
+
     <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
+
+    <title>Advanced Search</title>
+</header>
 
 <body>
-    <h3 id="instruction" class="d-inline font-weight-bold text-muted">To do this in the search box.</h3>
 
-    <img alt="Google" src="./images/google_img.png">
-    <br></br>
-    <div>
-        <label class="as_lable">Advanced Search</label>
+
+
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+        <div class="container flex flex-wrap justify-end items-center mx-auto">
+            <div class="absolute w-20 h-20 top-3 left-5">
+                <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                    alt="Google" />
+            </div>
+            <div class="flex items-center w-6 h-6 md:order-2">
+                <img class="rounded-full"
+                    src="https://avatars.githubusercontent.com/u/72172663?s=400&u=335e93ca603dae77f1a733e1ff51a000f37f937a&v=4"
+                    alt="user photo" />
+            </div>
+
+            <div class="w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
+                <ul
+                    class="flex items-center flex-col bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="./google-image.html"
+                            class="block text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Images
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./index.html"
+                            class="block text-blue-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+                    </li>
+                    <li>
+                        <a href="#grid"><img
+                                class="w-6 h-6 block mr-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                src="https://cdn3.iconfinder.com/data/icons/navigation-and-settings/24/Material_icons-01-11-512.png"
+                                title="Google apps" /></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="text-red-500 font-medium text-sm pl-10 pb-5 pt-5">
+        <label>Advanced Search</label>
     </div>
-    <br></br>
-    <div class="ll"></div>
-    <br></br>
-    <div class="as_empty">
-        <label>Find pages with</label>
+    <hr>
+
+    <div class=" grid gap-4 pl-10 pt-8">
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-1 font-medium text-s">Find pages with...</div>
+            <div class="col-span-3"></div>
+            <div class="col-span-2 font-medium text-s hidden xl:block">To do this in the search box.</div>
+        </div>
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-1 text-xs">all these words:</div>
+            <div class="col-span-3"><input class="w-full h-6 rounded-sm border-gray-400" type="text"></div>
+            <div class="col-span-2 text-xs hidden xl:block">Type the important words: <span class="font-bold">tri-colour
+                    rat terrier</span></div>
+        </div>
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-1 text-xs">this exact word or phrase: </div>
+            <div class="col-span-3"><input class="w-full h-6 rounded-sm border-gray-400" type="text"></div>
+            <div class="col-span-2 text-xs hidden xl:block">Put exact words in quotes: <span class="font-bold">"rat
+                    terrier"</span></div>
+        </div>
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-1 text-xs">any of these words:</div>
+            <div class="col-span-3"><input class="w-full h-6 rounded-sm border-gray-400" type="text"></div>
+            <div class="col-span-2 text-xs hidden xl:block">Type OR between all the words you want: miniature <span
+                    class="font-bold">OR</span>
+                standard
+            </div>
+        </div>
+        <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-1 text-xs">this exact word or phrase: </div>
+            <div class="col-span-3"><input class="w-full h-6 rounded-sm border-gray-400" type="text"></div>
+            <div class="col-span-2 text-xs hidden xl:block">Put a minus sign just before words that you don't want:
+                <span class="font-bold">-rodent,-"Jack Russell"</span>
+
+            </div>
+        </div>
+
     </div>
-    <form action="https://google.com/search">
-        <div>
-            <label class="l_s">all these words</label>
-            <input class="advanced" type="text" title="Search" , name="as_q">
-            <label class="l_f">Type the important words: tri-colour rat terrier</label>
-        </div>
-        <div>
-            <label class="l_s">this exact word</label>
-            <input class="advanced" type="text" title="Search" , name="as_epq">
-            <label class="l_f">Put exact words in quotes: "rat terrier"</label>
-        </div>
-        <div>
-            <label class="l_s">any of th words</label>
-            <input class="advanced" type="text" title="Search" , name="as_oq">
-            <label class="l_f">Type OR between all the words you want: miniature OR standard</label>
-        </div>
-        <div>
-            <label class="l_s">none of words::</label>
-            <input class="advanced" type="text" title="Search" , name="as_eq">
-            <label class="l_f">Put a minus sign just before words that you don't want:
-                -rodent, -"Jack Russell"</label>
-        </div>
-        <button class="as_btn" value="Google Advanced Search" type="submit">Advanced Search</button>
-    </form>
-    <ul class="tr">
-        <li>
-            <li>
-                <a href="#grid"><img class="grid" src="https://cdn3.iconfinder.com/data/icons/navigation-and-settings/24/Material_icons-01-11-512.png" title="Google apps"></a>
-            </li>
-            <li><a href="google-image.html">Images</a></li>
-            <li><a href="index.html">Googel Search</a></li>
-        </li>
-    </ul>
 </body>
 
 </html>
