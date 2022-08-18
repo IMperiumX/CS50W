@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin-left: 15px;
     background-color: white;
 }
 
@@ -24,7 +24,9 @@ textarea {
 .search {
     width: 100%;
     font-size: 15px;
-    line-height: 15px;
+    line-height: 25px;
+    margin-bottom: 10px;
+    border-radius: 25px;
 }
 
 .sidebar {
@@ -35,4 +37,15 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.space {
+    margin: auto;
+    margin-bottom: 20px;
+    max-width: 50%;
+}
+
+.cntr {
+    display: flex;
+    justify-content: center;
 }
