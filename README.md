@@ -20,6 +20,7 @@ All projects for CS50's Web Programming with Python and JavaScript.
 
 ## A front-end for Google Search, Google Image Search, and Google Advanced Search
 
+![google search page](0-search/images/screenshot-homePage.jpg)
 
 <br>
 
