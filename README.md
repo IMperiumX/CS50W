@@ -11,7 +11,6 @@ All projects for CS50's Web Programming with Python and JavaScript.
 - [Network](#network)
 - [Capstone (Educa)](#capstone)
 
-
 <br>
 
 # Search
@@ -40,7 +39,6 @@ All projects for CS50's Web Programming with Python and JavaScript.
 
 ## An eBay-like **e-commerce** auction site that will allow users to *post auction **listings,** place bids **on listings,** comment **on those listings, and** ad **listings to a** "watchlist."
 
-
 <br>
 
 # Mail
@@ -63,4 +61,4 @@ All projects for CS50's Web Programming with Python and JavaScript.
 
 [Source code](5-capstone)
 
-## An e-learning platform with Content Management System(CMS), REST API for courses and enchanced with flexable tools to Manage and Genearate contents in various types.
+## An e-learning platform with Content Management System(CMS), REST API for courses and enchanced with flexable tools to Manage and Genearate contents in various types
