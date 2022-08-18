@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from markdown2 import markdown
 from random import randint
-from . import util
+from encyclopedia import util
 
 
 def index(request):
@@ -9,12 +9,12 @@ def index(request):
 
 
 def entry(request, title):
-    context = {'content': markdown(util.get_entry(title.strip())), 'title': title}
+    context = {"content": markdown(util.get_entry(title.strip())), "title": title}
     return render(request, "encyclopedia/entry.html", context)
 
 
 def search(request):
-    q = request.GET.get('q').strip()
+    q = request.GET.get("q").strip()
     filenames = util.list_entries()
     search_result = [file for file in filenames if q in (file and file.lower())]
     if q in filenames:
@@ -56,7 +56,7 @@ def create(request):
 def edit(request, title):
     content = util.get_entry(title.strip())
     if content == "## Page was not found":
-        return render(request, "encyclopedia/edit.html", {'error': content})
+        return render(request, "encyclopedia/edit.html", {"error": content})
 
     if request.method == "POST":
         content = request.POST.get("content").strip()
@@ -73,16 +73,16 @@ def edit(request, title):
         util.save_entry(title, content)
         return redirect("entry", title=title)
     return render(
-        request, "encyclopedia/edit.html", {'content': content, 'title': title}
+        request, "encyclopedia/edit.html", {"content": content, "title": title}
     )
 
 
 def random_page(request):
-    Entries = util.list_entries()
-    Choice = randint(0, len(Entries) - 1)
-    title = Entries[Choice]
+    entries = util.list_entries()
+    choice = randint(0, len(entries) - 1)
+    title = entries[choice]
     content = markdown(util.get_entry(title))
 
     return render(
-        request, "encyclopedia/random_page.html", {'content': content, 'title': title}
+        request, "encyclopedia/random_page.html", {"content": content, "title": title}
     )
