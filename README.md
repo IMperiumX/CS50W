@@ -30,6 +30,7 @@ All projects for CS50's Web Programming with Python and JavaScript.
 
 ## Wikipedia-like online encyclopedia
 
+![Page Listing Entries](1-wiki/images/screenshot-entryPage.jpg)
 
 <br>
 
