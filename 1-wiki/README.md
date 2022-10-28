@@ -2,6 +2,30 @@
 
 Wikipedia style encyclopedia website called Qwikipedia, built using the Django web framework.
 
+## TL;DR
+
+Knowledge is what we leave behind us after we’re gone. The next generations build on our ideas and assumptions and produce new ideas. Humanity has used physical materials, like ink and paper, to store knowledge. Now, we have a new and powerful medium – the Internet – to share and analyze information. We still need a structure to manage a digital online encyclopedia system.
+
+## Data Model
+
+We should be able to store articles or topics, categorize and tag them, and relate them with other topics. 
+
+The data model consists of five main subject areas:
+
+- Articles
+- Categories & tags
+- Authors
+- Languages
+- Modifications
+
+## Articles
+
+```plantuml
+@startuml wiki
+Article ||--o{ related_articles
+@enduml
+```
+
 ## Technologies
 
 ### Back-end
