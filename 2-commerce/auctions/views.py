@@ -109,14 +109,13 @@ def watchlist_remove(request, pk):
 def watchlist_list(request):
     user_list = Watchlist.objects.get(user=request.user)
     auctions = user_list.item.all()
-    return render(request, 'auctions/watchlist.html', {'auctions': auctions})
+    return render(request, "auctions/watchlist.html", {"auctions": auctions})
 
 
 class AuctionsCreateView(LoginRequiredMixin, CreateView):
     model = Auctions
-    template_name = "auctions/create.html"
-    fields = ['title', 'description', 'starting_bid', 'image', 'category', 'sold']
-    success_url = '/'
+    fields = ["title", "description", "starting_bid", "image", "category", "sold"]
+    success_url = "/"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -125,20 +124,18 @@ class AuctionsCreateView(LoginRequiredMixin, CreateView):
 
 class AuctionsListingView(ListView):
     queryset = Auctions.active.all()
-    context_object_name = 'auctions'
-    template_name = 'auctions/index.html'
 
 
 @login_required
 def listing_detail(request, pk):
-    template_name = 'auctions/listing_detail.html'
+    template_name = "auctions/listing_detail.html"
     listing = get_object_or_404(Auctions, id=pk)
     comments = listing.comments.filter(active=True)
     new_comment = None
     exists = Watchlist.objects.filter(user=request.user, item=pk).exists()
 
     # Comment posted
-    if request.method == 'POST':
+    if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
 
@@ -155,11 +152,11 @@ def listing_detail(request, pk):
         request,
         template_name,
         {
-            'auctions': listing,
-            'comments': comments,
-            'new_comment': new_comment,
-            'comment_form': comment_form,
-            'exists': exists,
+            "auctions": listing,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+            "exists": exists,
         },
     )
 
@@ -178,7 +175,7 @@ def bidding(request, pk):
         )
         Bid.objects.create(user=request.user, new_bid=bid, auction=auctions)
 
-    return render(request, "auctions/listing_detail.html", {'auctions': auctions})
+    return render(request, "auctions/listing_detail.html", {"auctions": auctions})
 
 
 @login_required
@@ -202,6 +199,8 @@ def bidding_close(request, pk):
             f"{winner} have WON the bid on {auctions.title} for"
             f" ${auctions.starting_bid}",
         )
+
+    return render(request, "auctions/close_bidding.html", {"auctions": auctions})
 
     return render(request, 'auctions/close_bidding.html', {'auctions': auctions})
 
