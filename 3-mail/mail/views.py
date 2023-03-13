@@ -33,9 +33,7 @@ def compose(request):
     data = json.loads(request.body)
     emails = [email.strip() for email in data.get("recipients").split(",")]
     if emails == [""]:
-        return JsonResponse({
-            "error": "At least one recipient required."
-        }, status=400)
+        return JsonResponse({"error": "At least one recipient required."}, status=400)
 
     # Convert email addresses to users
     recipients = []
@@ -44,10 +42,10 @@ def compose(request):
             user = User.objects.get(email=email)
             recipients.append(user)
         except User.DoesNotExist:
-            return JsonResponse({
-                "error": f"User with email {email} does not exist.",
-                "status": 400
-            }, status=400)
+            return JsonResponse(
+                {"error": f"User with email {email} does not exist.", "status": 400},
+                status=400,
+            )
 
     # Get contents of email
     subject = data.get("subject", "")
@@ -63,14 +61,16 @@ def compose(request):
             sender=request.user,
             subject=subject,
             body=body,
-            read=user == request.user
+            read=user == request.user,
         )
         email.save()
         for recipient in recipients:
             email.recipients.add(recipient)
         email.save()
 
-    return JsonResponse({"message": "Email sent successfully.", "status": 201}, status=201)
+    return JsonResponse(
+        {"message": "Email sent successfully.", "status": 201}, status=201
+    )
 
 
 @login_required
@@ -82,9 +82,7 @@ def mailbox(request, mailbox):
             user=request.user, recipients=request.user, archived=False
         )
     elif mailbox == "sent":
-        emails = Email.objects.filter(
-            user=request.user, sender=request.user
-        )
+        emails = Email.objects.filter(user=request.user, sender=request.user)
     elif mailbox == "archive":
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, archived=True
@@ -123,9 +121,7 @@ def email(request, email_id):
 
     # Email must be via GET or PUT
     else:
-        return JsonResponse({
-            "error": "GET or PUT request required."
-        }, status=400)
+        return JsonResponse({"error": "GET or PUT request required."}, status=400)
 
 
 def login_view(request):
@@ -141,9 +137,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "mail/login.html", {
-                "message": "Invalid email and/or password."
-            })
+            return render(
+                request,
+                "mail/login.html",
+                {"message": "Invalid email and/or password."},
+            )
     else:
         return render(request, "mail/login.html")
 
@@ -161,9 +159,9 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "mail/register.html", {
-                "message": "Passwords must match."
-            })
+            return render(
+                request, "mail/register.html", {"message": "Passwords must match."}
+            )
 
         # Attempt to create new user
         try:
@@ -171,9 +169,11 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return render(request, "mail/register.html", {
-                "message": "Email address already taken."
-            })
+            return render(
+                request,
+                "mail/register.html",
+                {"message": "Email address already taken."},
+            )
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, FormView
 
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -112,6 +112,19 @@ def watchlist_list(request):
     return render(request, "auctions/watchlist.html", {"auctions": auctions})
 
 
+class WatchlistListView(LoginRequiredMixin, ListView):
+    model = Watchlist
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Watchlist.objects.select_related("user").filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["auctions"] = self.get_queryset()
+        return context
+
+
 class AuctionsCreateView(LoginRequiredMixin, CreateView):
     model = Auctions
     fields = ["title", "description", "starting_bid", "image", "category", "sold"]
@@ -122,43 +135,39 @@ class AuctionsCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AuctionsListingView(ListView):
-    queryset = Auctions.active.all()
+class AuctionsListView(ListView):
+    model = Auctions
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Auctions.objects.filter_active_auctions()
 
 
-@login_required
-def listing_detail(request, pk):
-    template_name = "auctions/listing_detail.html"
-    listing = get_object_or_404(Auctions, id=pk)
-    comments = listing.comments.filter(active=True)
-    new_comment = None
-    exists = Watchlist.objects.filter(user=request.user, item=pk).exists()
+class AuctionsDetailView(DetailView):
+    model = Auctions
 
-    # Comment posted
-    if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
+    def get_queryset(self):
+        return Auctions.objects.annotate_auctions_comments()
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = listing
-            # Save the comment to the database
+    def get_context_data(self, **kwargs):
+        print(self)
+        context = super().get_context_data(**kwargs)
+        context["comments"] = self.get_object().auctions_comments
+        context["new_comment"] = None
+        context["comment_form"] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = self.object
             new_comment.save()
-    else:
-        comment_form = CommentForm()
-
-    return render(
-        request,
-        template_name,
-        {
-            "auctions": listing,
-            "comments": comments,
-            "new_comment": new_comment,
-            "comment_form": comment_form,
-            "exists": exists,
-        },
-    )
+            return self.get(request, *args, **kwargs)
+        else:
+            form = CommentForm()
+        return render(request, self.get_template_names, {"form": form})
 
 
 @login_required
@@ -202,14 +211,19 @@ def bidding_close(request, pk):
 
     return render(request, "auctions/close_bidding.html", {"auctions": auctions})
 
-    return render(request, 'auctions/close_bidding.html', {'auctions': auctions})
+
+import pysnooper
 
 
+@pysnooper.snoop()
 def category(request):
     category = None
     auctions = None
     values = [c[0] for c in Auctions.CATEGORY_CHOICES]
     if request.method == "POST":
+        from pprint import pprint
+
+        pprint(request.POST.values())
         category = request.POST["categories"]
         auctions = Auctions.objects.filter(category=category)
 

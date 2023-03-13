@@ -38,13 +38,18 @@ class Article(LifecycleModel):
     # model utils related fields
     tracker = FieldTracker()
     history = HistoricalRecords()
-    
+
     @hook(AFTER_UPDATE, when="status", was="draft", is_now="published")
     def on_publish(self):
-        send_mail(object="An article has published!",
-                    message="An article has been published",
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.DEFAULT_RECIPIENT_EMAILS,])
+        send_mail(
+            object="An article has published!",
+            message="An article has been published",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[
+                settings.DEFAULT_RECIPIENT_EMAILS,
+            ],
+        )
+
     class Meta:
         """Meta definition for Article."""
 
@@ -64,7 +69,6 @@ class RelatedArticle(models.Model):
     )
     related_article_id = models.IntegerField(_("Related article id"))
 
-    
     class Meta:
         """Meta definition for RelatedArticle."""
 
@@ -199,15 +203,14 @@ class RelatedAuthor(models.Model):
 class ModificationType(models.Model):
     """Model definition for ModificationType."""
 
-
-    STATUS = Choices('draft', 'published', 'deleted')
-    status =StatusField()
+    STATUS = Choices("draft", "published", "deleted")
+    status = StatusField()
     tracker = FieldTracker()
-    
+
     # ANOTHER_CHOICES = Choices('draft', 'unmodifed')
     # untype = StatusField(choices_name='ANOTHER_CHOICES')
-    
-    class Meta: 
+
+    class Meta:
         """Meta definition for ModificationType."""
 
         verbose_name = "ModificationType"
@@ -227,9 +230,9 @@ class Modification(models.Model):
     )
     tracker = FieldTracker()
     history = HistoricalRecords()
-    
+
     # TODO: article_translation (FK) => ArticleTranslation
-    
+
     class Meta:
         """Meta definition for Modification."""
 

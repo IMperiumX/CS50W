@@ -141,27 +141,27 @@ def edit(request):
 @csrf_exempt
 def like(request):
     if request.method == "POST":
-        post_id = request.POST.get('id')
-        is_liked = request.POST.get('is_liked')
+        post_id = request.POST.get("id")
+        is_liked = request.POST.get("is_liked")
         try:
             post = Post.objects.get(id=post_id)
-            if is_liked == 'no':
+            if is_liked == "no":
                 post.users_like.add(request.user)
-                is_liked = 'yes'
-            elif is_liked == 'yes':
+                is_liked = "yes"
+            elif is_liked == "yes":
                 post.users_like.remove(request.user)
-                is_liked = 'no'
+                is_liked = "no"
             post.save()
 
             return JsonResponse(
                 {
-                    'like_count': post.users_like.count(),
-                    'is_liked': is_liked,
+                    "like_count": post.users_like.count(),
+                    "is_liked": is_liked,
                     "status": 201,
                 }
             )
         except:
-            return JsonResponse({'error': "Post not found", "status": 404})
+            return JsonResponse({"error": "Post not found", "status": 404})
     return JsonResponse({}, status=400)
 
 
@@ -169,20 +169,20 @@ def like(request):
 @require_POST
 @login_required
 def user_follow(request):
-    user_id = request.POST.get('id')
-    action = request.POST.get('action')
+    user_id = request.POST.get("id")
+    action = request.POST.get("action")
     if user_id and action:
         try:
             user = User.objects.get(id=user_id)
-            if action == 'follow':
+            if action == "follow":
                 Contact.objects.get_or_create(user_from=request.user, user_to=user)
-                create_action(request.user, 'is following', user)
+                create_action(request.user, "is following", user)
             else:
                 Contact.objects.filter(user_from=request.user, user_to=user).delete()
-            return JsonResponse({'status': 'ok'})
+            return JsonResponse({"status": "ok"})
         except User.DoesNotExist:
-            return JsonResponse({'status': 'error'})
-    return JsonResponse({'status': 'error'})
+            return JsonResponse({"status": "error"})
+    return JsonResponse({"status": "error"})
 
 
 class PostListView(ListView):

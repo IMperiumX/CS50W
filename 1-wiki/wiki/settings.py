@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party
     "django_extensions",
-    'simple_history',
+    "simple_history",
     # Local apps
     "encyclopedia",
 ]
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'simple_history.middleware.HistoryRequestMiddleware',
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "wiki.urls"
