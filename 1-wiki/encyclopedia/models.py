@@ -22,12 +22,10 @@ class Language(models.Model):
         verbose_name_plural = "Languages"
 
     def __str__(self):
-        """Unicode representation of Language."""
-        return f"{self.language_code - self.c}"
+        return f"{self.language_code - self.language_name}"
 
 
 class Article(LifecycleModel):
-    default_language = models.ForeignKey(Language, on_delete=models.CASCADE)
     article_title = models.CharField(_("Article title"), max_length=255)
     article_text = models.TextField(_("Article text"))
     article_url = models.URLField(_("Article Url"), max_length=200)
@@ -35,6 +33,8 @@ class Article(LifecycleModel):
     time_updated = models.DateTimeField(_("Time Article updated"), auto_now=True)
     time_published = models.DateTimeField(_("Time article piblished"))
 
+    default_language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    
     # model utils related fields
     tracker = FieldTracker()
     history = HistoricalRecords()
@@ -57,7 +57,6 @@ class Article(LifecycleModel):
         verbose_name_plural = "Articles"
 
     def __str__(self):
-        """Unicode representation of Article."""
         return self.article_title
 
 
@@ -69,6 +68,7 @@ class RelatedArticle(models.Model):
     )
     related_article_id = models.IntegerField(_("Related article id"))
 
+
     class Meta:
         """Meta definition for RelatedArticle."""
 
@@ -76,14 +76,13 @@ class RelatedArticle(models.Model):
         verbose_name_plural = "RelatedArticles"
 
     def __str__(self):
-        """Unicode representation of RelatedArticle."""
         return f"{self.article} - {self.related_article_id}"
 
 
 class Category(models.Model):
     """Model definition for Category."""
 
-    category_name = models.CharField(_("Category name"), max_length=128)
+    name = models.CharField(_("Category name"), max_length=128)
 
     class Meta:
         """Meta definition for Category."""
@@ -92,14 +91,13 @@ class Category(models.Model):
         verbose_name_plural = "Categorys"
 
     def __str__(self):
-        """Unicode representation of Category."""
-        return self.category_name
+        return self.name
 
 
 class SubCategory(models.Model):
     """Model definition for SubCategory."""
 
-    subcategory_name = models.CharField(_("SubCategory name"), max_length=128)
+    name = models.CharField(_("SubCategory name"), max_length=128)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="sub_category"
     )
@@ -111,8 +109,7 @@ class SubCategory(models.Model):
         verbose_name_plural = "SubCategorys"
 
     def __str__(self):
-        """Unicode representation of SubCategory."""
-        return
+        return f"{self.name} - {self.category}"
 
 
 class AssociateSubCategory(models.Model):
@@ -130,8 +127,7 @@ class AssociateSubCategory(models.Model):
         verbose_name_plural = "AssociateSubCategorys"
 
     def __str__(self):
-        """Unicode representation of AssociateSubCategory."""
-        pass
+        return f"{self.article} - {self.subcategory}"
 
 
 class Tag(models.Model):
@@ -146,7 +142,6 @@ class Tag(models.Model):
         verbose_name_plural = "Tags"
 
     def __str__(self):
-        """Unicode representation of Tag."""
         return self.tag_name
 
 
@@ -163,9 +158,8 @@ class AssociateTag(models.Model):
         verbose_name_plural = "AssociateTags"
 
     def __str__(self):
-        """Unicode representation of AssociateTag."""
 
-
+        return f"{self.tag} - {self.article}"
 class Author(AbstractUser):
     """Model definition for Author."""
 
@@ -179,7 +173,6 @@ class Author(AbstractUser):
         verbose_name_plural = "Authors"
 
     def __str__(self):
-        """Unicode representation of Author."""
         return f"{self.username}"
 
 
@@ -196,7 +189,6 @@ class RelatedAuthor(models.Model):
         verbose_name_plural = "RelatedAuthors"
 
     def __str__(self):
-        """Unicode representation of RelatedAuthor."""
         return f"{self.article} - {self.author}"
 
 
@@ -217,8 +209,7 @@ class ModificationType(models.Model):
         verbose_name_plural = "ModificationTypes"
 
     def __str__(self):
-        """Unicode representation of ModificationType."""
-        pass
+        return f"{self.status}"
 
 
 class Modification(models.Model):
@@ -240,5 +231,4 @@ class Modification(models.Model):
         verbose_name_plural = "Modifications"
 
     def __str__(self):
-        """Unicode representation of Modification."""
         return f"{self.article}, Modified at: {self.time_modified} by {self.author}"
