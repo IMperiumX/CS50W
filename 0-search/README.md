@@ -1,13 +1,22 @@
 
-<h1 style='text-align: center;'>Project 0 - Search </h1>
+<div style='text-align: center;'>
+
+<h1>Project 0 - Search </h1>
 
 ### A front-end for Google Search, Image Search and  Advanced Search
 
-<img src="./images/screenshot-homePage.jpg" alt="google search main page" >
+<img src="https://github.com/IMperiumX/logos/blob/main/CS50W/screenshot-homePage.jpg?raw=true" alt="google search main page" width="50%" height="50%">
+
 <hr>
-<img src="./images/screenshot-googleImages.jpg" alt="google search main page" >
+
+<img src="https://github.com/IMperiumX/logos/blob/main/CS50W/screenshot-googleImages.jpg?raw=true" alt="google search main page" width="50%" height="50%">
+
+
 <hr>
-<img src="./images/screenshot-advancedSearch.jpg" alt="google search main page" >
+
+<img src="https://github.com/IMperiumX/logos/blob/main/CS50W/screenshot-advancedSearch.jpg?raw=true" alt="google search main page" width="50%" height="50%">
+
+</div>
 
 ## Pages - [Link](https://cs50.harvard.edu/web/2020/projects/0/search/)
 
